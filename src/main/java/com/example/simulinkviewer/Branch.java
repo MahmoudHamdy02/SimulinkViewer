@@ -22,6 +22,11 @@ public class Branch {
         return distBlockPort;
     }
 
+    public Branch(int z, int distBlockId, int distBlockPort) {
+        this.z = z;
+        this.distBlockId = distBlockId;
+        this.distBlockPort = distBlockPort;
+    }
     public Branch(int z, Point pt, int distBlockId, int distBlockPort) {
         this.z = z;
         this.pt = pt;
