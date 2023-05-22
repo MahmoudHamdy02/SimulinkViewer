@@ -39,6 +39,23 @@ public class Line {
         return branches;
     }
 
+    public Line(int z, int srcBlockId, int srcBlockPort, int distBlockId, int distBlockPort, Branch[] branches) {
+        this.z = z;
+        this.srcBlockId = srcBlockId;
+        this.srcBlockPort = srcBlockPort;
+        this.distBlockId = distBlockId;
+        this.distBlockPort = distBlockPort;
+        this.branches = branches;
+    }
+
+    public Line(int z, int srcBlockId, int srcBlockPort, int distBlockId, int distBlockPort) {
+        this.z = z;
+        this.srcBlockId = srcBlockId;
+        this.srcBlockPort = srcBlockPort;
+        this.distBlockId = distBlockId;
+        this.distBlockPort = distBlockPort;
+    }
+
     public Line(int z, int srcBlockId, int srcBlockPort, int distBlockId, int distBlockPort, Point[] pts, Branch[] branches) {
         this.z = z;
         this.srcBlockId = srcBlockId;

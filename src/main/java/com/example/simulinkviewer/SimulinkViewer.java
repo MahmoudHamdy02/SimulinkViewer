@@ -13,6 +13,14 @@ public class SimulinkViewer extends Application {
     public void start(Stage stage) throws IOException {
         try {
             FileReader fileReader = new FileReader("/home/mahmoud/Downloads/Example.mdl");
+            Line[] fileLines = fileReader.getLines();
+            for (Line line: fileLines) {
+                System.out.println(line.getSrcBlockId());
+            }
+            Block[] fileBlocks = fileReader.getBlocks();
+            for (Block block: fileBlocks) {
+                System.out.println(block.getType());
+            }
         } catch (Exception e) {
             System.out.println(e);
         }
