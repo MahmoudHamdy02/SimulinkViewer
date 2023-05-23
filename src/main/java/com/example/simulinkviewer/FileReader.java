@@ -138,7 +138,7 @@ public class FileReader {
                     srcBlockId = Integer.parseInt(String.valueOf(source.charAt(0)));
                     srcBlockPort = Integer.parseInt(String.valueOf(source.charAt(6)));
                 }
-                if (propType.equals("Dst")) {
+                if (propType.equals("Dst") && eProperty.getParentNode().getNodeName().equals("Line")) {
                     String source = eProperty.getTextContent();
                     dstBlockId = Integer.parseInt(String.valueOf(source.charAt(0)));
                     dstBlockPort = Integer.parseInt(String.valueOf(source.charAt(5)));

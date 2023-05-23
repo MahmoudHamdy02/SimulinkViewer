@@ -17,7 +17,7 @@ public class SimulinkViewer extends Application {
             FileReader fileReader = new FileReader("/home/mahmoud/Downloads/Example.mdl");
             Line[] fileLines = fileReader.getLines();
             for (Line line: fileLines) {
-                System.out.println(line.getSrcBlockId());
+                System.out.println(line.getDistBlockId());
             }
             Block[] fileBlocks = fileReader.getBlocks();
             for (Block block: fileBlocks) {
