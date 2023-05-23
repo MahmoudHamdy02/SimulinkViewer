@@ -9,20 +9,23 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class SimulinkViewer extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         try {
-            FileReader fileReader = new FileReader("/home/mahmoud/Downloads/Example.mdl");
+            FileReader fileReader = new FileReader("D:\\CODING\\Java\\SimulinkViewer\\src\\main\\java\\com\\example\\simulinkviewer\\Example.mdl");
             Line[] fileLines = fileReader.getLines();
             for (Line line: fileLines) {
-                System.out.println(line.getSrcBlockId());
+                System.out.println(line.getDistBlockId());
             }
             Block[] fileBlocks = fileReader.getBlocks();
             for (Block block: fileBlocks) {
                 System.out.println(block.getType());
             }
+            ArrayList<DrawLine> drawLines = GenerateDrawLines(fileBlocks, fileLines);
+
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -69,5 +72,82 @@ public class SimulinkViewer extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    public ArrayList<DrawLine> GenerateDrawLines(Block[] blocks, Line[] lines) {
+        ArrayList<DrawLine> drawLines = new ArrayList();
+
+        for(Line l: lines) {
+            int srcId = l.getSrcBlockId();
+            int srcPort = l.getSrcBlockPort();
+            Block srcBlock = Block.findById(blocks, srcId);
+            // assuming height of blocks = 34
+            int startY = 5 + srcBlock.getTop() + srcPort * 8;
+            int startX = srcBlock.getRight();
+
+            Point startPt = new Point(startX, startY);
+            Point endPt;
+
+            if(l.getDistBlockId() != -1 || l.getDistBlockId() != 0) { // there is dist
+                if(l.getPts() != null && l.getPts().length > 0) { // if there are points, make more lines
+                    for(Point linePt: l.getPts()) { // NOTE: line points are distance moved, not absolute coordinations
+                        endPt = new Point(startPt.getX() + linePt.getX(), startPt.getY() + linePt.getY());
+                        drawLines.add(new DrawLine(startPt, endPt));
+                        startPt = endPt;
+                    }
+                }
+                int distId = l.getDistBlockId();
+                int distPort = l.getDistBlockPort();
+                Block distBlock = Block.findById(blocks, distId);
+                // assuming height of blocks = 34
+                int endY = 5 + distBlock.getTop() + distPort * 8;
+                int endX = distBlock.getLeft();
+
+                endPt = new Point(endX, endY);
+
+                drawLines.add(new DrawLine(startPt, endPt));
+
+            } else { // there is no dist
+                // there must be points
+                for(Point linePt: l.getPts()) { // NOTE: line points are distance moved, not absolute coordinations
+                    endPt = new Point(startPt.getX() + linePt.getX(), startPt.getY() + linePt.getY());
+                    drawLines.add(new DrawLine(startPt, endPt));
+                    startPt = endPt;
+                }
+
+                final Point branchStart = startPt;
+
+                // branches
+                if(l.getBranches() != null && l.getBranches().length > 0) { // are there branches?
+                    for(Branch br: l.getBranches()) {
+                        // always contains dist, could contain points
+                        startPt = branchStart;
+
+                        if(br.getPt() != null) { // if there are points,
+                            endPt = new Point(startPt.getX() + br.getPt().getX(), startPt.getY() + br.getPt().getY());
+                            drawLines.add(new DrawLine(startPt, endPt));
+                            startPt = endPt;
+                        }
+
+                        int distId = br.getDistBlockId();
+                        int distPort = br.getDistBlockPort();
+                        Block distBlock = Block.findById(blocks, distId);
+                        // assuming height of blocks = 34
+                        int endY = 5 + distBlock.getTop() + distPort * 8;
+                        int endX = distBlock.getLeft();
+
+                        endPt = new Point(endX, endY);
+
+                        drawLines.add(new DrawLine(startPt, endPt));
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        return drawLines;
     }
 }

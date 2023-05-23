@@ -70,4 +70,11 @@ public class Block {
         this.bottom = bottom;
         this.z = z;
     }
+
+    public static Block findById(Block[] blocks, int id) {
+        for(Block b: blocks) {
+            if(b.id == id) return b;
+        }
+        return null;
+    }
 }
