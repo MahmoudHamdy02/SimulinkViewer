@@ -126,7 +126,7 @@ public class FileReader {
 
             NodeList properties = eLine.getElementsByTagName("P");
             for (int j = 0; j < properties.getLength(); j++) {
-                Node property = properties.item(i);
+                Node property = properties.item(j);
                 Element eProperty = (Element)property;
                 String propType = eProperty.getAttribute("Name");
 
