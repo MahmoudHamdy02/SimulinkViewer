@@ -130,7 +130,7 @@ public class FileReader {
                 Element eProperty = (Element)property;
                 String propType = eProperty.getAttribute("Name");
 
-                if (propType.equals("ZOrder")) {
+                if (propType.equals("ZOrder") && eProperty.getParentNode().getNodeName().equals("Line")) {
                     zOrder = Integer.parseInt(eProperty.getTextContent());
                 }
                 if (propType.equals("Src")) {
@@ -143,7 +143,7 @@ public class FileReader {
                     dstBlockId = Integer.parseInt(String.valueOf(source.charAt(0)));
                     dstBlockPort = Integer.parseInt(String.valueOf(source.charAt(5)));
                 }
-                if (propType.equals("Points")) {
+                if (propType.equals("Points") && eProperty.getParentNode().getNodeName().equals("Line")) {
                     hasPoints = true;
                     String[] pointsText = eProperty.getTextContent()
                             .replace("[", "")
