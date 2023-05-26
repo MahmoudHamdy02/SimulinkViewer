@@ -14,7 +14,7 @@ Section 3
 
 - Mahmoud Hamdy - 2001300
 - Ahmed Atwa - 2001391
-- Mohamed Adham - 2001184
+- Mohamed Adham Mohamed Nagiub - 2001184
 
 ## How to use
 

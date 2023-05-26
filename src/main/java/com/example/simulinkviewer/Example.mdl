@@ -96,7 +96,7 @@ __MWOPC_PART_BEGIN__ /simulink/bddefaults.xml
     <MaskParameter Evaluate="on" Tunable="on" NeverSave="off" Internal="off" ReadOnly="off" Enabled="on" Visible="on" ToolTip="on"/>
     <DialogControl>
       <ControlOptions Visible="on" Enabled="on" Row="new" HorizontalStretch="on" PromptLocation="top" Orientation="horizontal" Scale="linear" TextType="Plain Text" Expand="off" ShowFilter="on" ShowParameterName="on" WordWrap="on" AlignPrompts="off"/>
-    </DialogControl>
+    </DialogControl>f
   </MaskDefaults>
   <BlockParameterDefaults>
     <Block BlockType="Constant">
@@ -1108,7 +1108,7 @@ __MWOPC_PART_BEGIN__ /simulink/systems/system_root.xml
   <Line>
     <P Name="ZOrder">4</P>
     <P Name="Src">4#out:1</P>
-    <P Name="Points">[-8, 0; 0, -65]</P>
+    <P Name="Points">[-8, 0; 0, -55]</P>
     <P Name="Dst">3#in:3</P>
   </Line>
 </System>

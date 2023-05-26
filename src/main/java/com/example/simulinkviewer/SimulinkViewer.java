@@ -72,8 +72,8 @@ public class SimulinkViewer extends Application {
             String currentDirectory = System.getProperty("user.dir");
 
             // Create the file path by appending the file name to the current directory
-//            String filePath = currentDirectory + File.separator +"src//main//java//com//example//simulinkviewer//" +  "Example.mdl";
-            String filePath = "/home/mahmoud/Downloads/Example.mdl";
+            String filePath = currentDirectory + File.separator +"src//main//java//com//example//simulinkviewer//" +  "Example.mdl";
+            //String filePath = "/home/mahmoud/Downloads/Example.mdl";
             FileReader fileReader = new FileReader(filePath);
             Line[] fileLines = fileReader.getLines();
             for (Line line: fileLines) {
@@ -107,15 +107,18 @@ public class SimulinkViewer extends Application {
             int srcPort = l.getSrcBlockPort();
             Block srcBlock = Block.findById(blocks, srcId);
             // assuming height of blocks = 34
-            int startY = 5 + srcBlock.getTop() + srcPort * 8;
+            int startY = 5 + srcBlock.getTop() + (srcPort-1) * 8;
             int startX = srcBlock.getRight();
 
             Point startPt = new Point(startX, startY);
             Point endPt;
 
-            if(l.getDistBlockId() != -1 || l.getDistBlockId() != 0) { // there is dist
+            if(l.getDistBlockId() != -1 && l.getDistBlockId() != 0) { // there is dist
                 if(l.getPts() != null && l.getPts().length > 0) { // if there are points, make more lines
                     for(Point linePt: l.getPts()) { // NOTE: line points are distance moved, not absolute coordinations
+                        if(linePt.getX() < 0) {
+                            startPt = new Point(srcBlock.getLeft(), startPt.getY());
+                        }
                         endPt = new Point(startPt.getX() + linePt.getX(), startPt.getY() + linePt.getY());
                         drawLines.add(new DrawLine(startPt, endPt));
                         startPt = endPt;
@@ -125,7 +128,7 @@ public class SimulinkViewer extends Application {
                 int distPort = l.getDistBlockPort();
                 Block distBlock = Block.findById(blocks, distId);
                 // assuming height of blocks = 34
-                int endY = 5 + distBlock.getTop() + distPort * 8;
+                int endY = portLocationCalc(distBlock.getTop(), distPort);
                 System.out.println("after calling gettop");
                 int endX = distBlock.getLeft();
 
@@ -136,6 +139,9 @@ public class SimulinkViewer extends Application {
             } else { // there is no dist
                 // there must be points
                 for(Point linePt: l.getPts()) { // NOTE: line points are distance moved, not absolute coordinations
+                    if(linePt.getX() < 0) {
+                        startPt = new Point(srcBlock.getLeft(), startPt.getY());
+                    }
                     endPt = new Point(startPt.getX() + linePt.getX(), startPt.getY() + linePt.getY());
                     drawLines.add(new DrawLine(startPt, endPt));
                     startPt = endPt;
@@ -159,7 +165,7 @@ public class SimulinkViewer extends Application {
                         int distPort = br.getDistBlockPort();
                         Block distBlock = Block.findById(blocks, distId);
                         // assuming height of blocks = 34
-                        int endY = 5 + distBlock.getTop() + distPort * 8;
+                        int endY = portLocationCalc(distBlock.getTop(), distPort);
                         int endX = distBlock.getLeft();
 
                         endPt = new Point(endX, endY);
@@ -175,5 +181,9 @@ public class SimulinkViewer extends Application {
         }
 
         return drawLines;
+    }
+
+    int portLocationCalc(int top, int distPort) {
+        return top + (distPort -1) * 10 + 5;
     }
 }
