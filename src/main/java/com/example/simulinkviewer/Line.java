@@ -65,4 +65,19 @@ public class Line {
         this.pts = pts;
         this.branches = branches;
     }
+
+    @Override
+    public String toString() {
+        String points = "";
+        String brnches = "";
+        for (Point p : pts) {
+            points = points.concat(p.toString());
+        }
+        for (Branch b : branches) {
+            brnches = brnches.concat(b.toString());
+        }
+        return String.format(
+                "Src block id: %s, Src block port: %s, Dist block id: %s, Dist block port: %s, Z: %s",
+                srcBlockId, srcBlockPort, distBlockId, distBlockPort, z) + points + brnches;
+    }
 }

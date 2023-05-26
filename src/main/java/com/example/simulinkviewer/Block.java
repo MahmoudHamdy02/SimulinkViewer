@@ -77,4 +77,10 @@ public class Block {
         }
         return null;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Type: %s, Name: %s, Id: %s, Left: %s, Top: %s, Right: %s, Bottom: %s, PortsIn: %s, PortsOut %s",
+                type, name, id, left, top, right, bottom, portsIn, portsOut);
+    }
 }

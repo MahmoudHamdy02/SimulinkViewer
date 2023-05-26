@@ -72,17 +72,18 @@ public class SimulinkViewer extends Application {
             String currentDirectory = System.getProperty("user.dir");
 
             // Create the file path by appending the file name to the current directory
-            String filePath = currentDirectory + File.separator +"src//main//java//com//example//simulinkviewer//" +  "Example.mdl";
+//            String filePath = currentDirectory + File.separator +"src//main//java//com//example//simulinkviewer//" +  "Example.mdl";
+            String filePath = "/home/mahmoud/Downloads/Example.mdl";
             FileReader fileReader = new FileReader(filePath);
             Line[] fileLines = fileReader.getLines();
             for (Line line: fileLines) {
-                System.out.println(line.getDistBlockId());
+                System.out.println(line.toString());
             }
             Block[] fileBlocks = fileReader.getBlocks();
             for (Block block: fileBlocks) {
                 //add the block to the blockG
                 blocks.add(block);
-                System.out.println(block.getType());
+                System.out.println(block.toString());
             }
             lines = GenerateDrawLines(fileBlocks, fileLines);
             System.out.println("called generatedrawlines");

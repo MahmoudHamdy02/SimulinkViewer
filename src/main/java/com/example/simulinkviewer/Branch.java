@@ -33,4 +33,9 @@ public class Branch {
         this.distBlockId = distBlockId;
         this.distBlockPort = distBlockPort;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Z: %s, Dist block id: %s, Dist block port: %s, Point: ", z, distBlockId, distBlockPort) + pt.toString();
+    }
 }
