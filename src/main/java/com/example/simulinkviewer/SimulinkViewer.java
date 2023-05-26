@@ -38,7 +38,7 @@ public class SimulinkViewer extends Application {
             System.out.println(e);
         }
         // Create a Canvas with a size
-        Canvas canvas = new Canvas(500, 500);
+        Canvas canvas = new Canvas(1200, 1200);
 
         // Get the GraphicsContext for drawing
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -63,8 +63,8 @@ public class SimulinkViewer extends Application {
 //        double lineY1 = blockY + blockHeight / 2;
 //        double lineX2 = lineX1 + 150;
 //        double lineY2 = lineY1 - 100;
-//        gc.setStroke(Color.RED);
-//        gc.setLineWidth(4);
+        gc.setStroke(Color.RED);
+        gc.setLineWidth(4);
         for (var line: drawLines)
             gc.strokeLine(line.getP1().getX(), line.getP1().getY(), line.getP2().getX(), line.getP2().getY());
         //loop in the same manner but printout the lines information
@@ -79,7 +79,7 @@ public class SimulinkViewer extends Application {
         StackPane pane = new StackPane();
         pane.getChildren().add(canvas);
 
-        Scene scene = new Scene(pane, 500, 500);
+        Scene scene = new Scene(pane, 1500, 1500);
         stage.setTitle("SimulinkViewer");
         stage.setScene(scene);
         stage.show();
@@ -103,7 +103,7 @@ public class SimulinkViewer extends Application {
             Point startPt = new Point(startX, startY);
             Point endPt;
 
-            if(l.getDistBlockId() != -1 || l.getDistBlockId() != 0) { // there is dist
+            if(l.getDistBlockId() != -1 || l.getDistBlockId() != 0 && Block.findById(blocks, l.getDistBlockId()) != null ) { // there is dist
                 if(l.getPts() != null && l.getPts().length > 0) { // if there are points, make more lines
                     for(Point linePt: l.getPts()) { // NOTE: line points are distance moved, not absolute coordinations
                         endPt = new Point(startPt.getX() + linePt.getX(), startPt.getY() + linePt.getY());
@@ -114,8 +114,11 @@ public class SimulinkViewer extends Application {
                 int distId = l.getDistBlockId();
                 int distPort = l.getDistBlockPort();
                 Block distBlock = Block.findById(blocks, distId);
+                if (distBlock != null)
+                    System.out.println("dist block not null");
                 // assuming height of blocks = 34
                 int endY = 5 + distBlock.getTop() + distPort * 8;
+                System.out.println("after calling gettop");
                 int endX = distBlock.getLeft();
 
                 endPt = new Point(endX, endY);
