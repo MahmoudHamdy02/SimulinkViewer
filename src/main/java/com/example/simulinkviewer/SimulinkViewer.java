@@ -85,7 +85,7 @@ public class SimulinkViewer extends Application {
                 blocks.add(block);
                 System.out.println(block.toString());
             }
-            lines = GenerateDrawLines(fileBlocks, fileLines);
+            lines.addAll(GenerateDrawLines(fileBlocks, fileLines));
             System.out.println("called generatedrawlines");
 
 
