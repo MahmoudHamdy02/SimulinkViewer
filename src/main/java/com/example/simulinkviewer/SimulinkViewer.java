@@ -18,7 +18,7 @@ public class SimulinkViewer extends Application {
         ArrayList<DrawLine> drawLines = new ArrayList<>();
         ArrayList<Block> blocksG  = new ArrayList<>();
         readFile(drawLines, blocksG);
-        
+
         // Create a Canvas with a size
         Canvas canvas = new Canvas(1200, 1200);
 
@@ -44,11 +44,6 @@ public class SimulinkViewer extends Application {
             //print out the block information in a single line
             System.out.println("block info: " + blockX + "," + blockY + "," + blockWidth + "," + blockHeight);
         }
-        // Draw a line coming out of the block
-//        double lineX1 = blockX + blockWidth;
-//        double lineY1 = blockY + blockHeight / 2;
-//        double lineX2 = lineX1 + 150;
-//        double lineY2 = lineY1 - 100;
         gc.setStroke(Color.RED);
         gc.setLineWidth(4);
         for (var line: drawLines)
@@ -91,6 +86,8 @@ public class SimulinkViewer extends Application {
             }
             lines = GenerateDrawLines(fileBlocks, fileLines);
             System.out.println("called generatedrawlines");
+
+
 
         } catch (Exception e) {
             System.out.println(e);
