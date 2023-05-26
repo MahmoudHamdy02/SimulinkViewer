@@ -17,29 +17,8 @@ public class SimulinkViewer extends Application {
     public void start(Stage stage) throws IOException {
         ArrayList<DrawLine> drawLines = new ArrayList<>();
         ArrayList<Block> blocksG  = new ArrayList<>();
-        try {
-            // Get the current working directory
-            String currentDirectory = System.getProperty("user.dir");
-
-            // Create the file path by appending the file name to the current directory
-            String filePath = currentDirectory + File.separator +"src//main//java//com//example//simulinkviewer//" +  "Example.mdl";
-            FileReader fileReader = new FileReader(filePath);
-            Line[] fileLines = fileReader.getLines();
-            for (Line line: fileLines) {
-                System.out.println(line.getDistBlockId());
-            }
-            Block[] fileBlocks = fileReader.getBlocks();
-            for (Block block: fileBlocks) {
-                //add the block to the blockG
-                blocksG.add(block);
-                System.out.println(block.getType());
-            }
-            drawLines = GenerateDrawLines(fileBlocks, fileLines);
-            System.out.println("called generatedrawlines");
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        readFile(drawLines, blocksG);
+        
         // Create a Canvas with a size
         Canvas canvas = new Canvas(1200, 1200);
 
@@ -90,6 +69,32 @@ public class SimulinkViewer extends Application {
         stage.setTitle("SimulinkViewer");
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void readFile(ArrayList<DrawLine> lines, ArrayList<Block> blocks){
+        try {
+            // Get the current working directory
+            String currentDirectory = System.getProperty("user.dir");
+
+            // Create the file path by appending the file name to the current directory
+            String filePath = currentDirectory + File.separator +"src//main//java//com//example//simulinkviewer//" +  "Example.mdl";
+            FileReader fileReader = new FileReader(filePath);
+            Line[] fileLines = fileReader.getLines();
+            for (Line line: fileLines) {
+                System.out.println(line.getDistBlockId());
+            }
+            Block[] fileBlocks = fileReader.getBlocks();
+            for (Block block: fileBlocks) {
+                //add the block to the blockG
+                blocks.add(block);
+                System.out.println(block.getType());
+            }
+            lines = GenerateDrawLines(fileBlocks, fileLines);
+            System.out.println("called generatedrawlines");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     public static void main(String[] args) {
