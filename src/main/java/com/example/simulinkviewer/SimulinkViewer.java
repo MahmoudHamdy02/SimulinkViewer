@@ -16,6 +16,7 @@ public class SimulinkViewer extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         ArrayList<DrawLine> drawLines = new ArrayList<>();
+        ArrayList<Block> blocksG  = new ArrayList<>();
         try {
             // Get the current working directory
             String currentDirectory = System.getProperty("user.dir");
@@ -29,6 +30,8 @@ public class SimulinkViewer extends Application {
             }
             Block[] fileBlocks = fileReader.getBlocks();
             for (Block block: fileBlocks) {
+                //add the block to the blockG
+                blocksG.add(block);
                 System.out.println(block.getType());
             }
             drawLines = GenerateDrawLines(fileBlocks, fileLines);
@@ -51,13 +54,17 @@ public class SimulinkViewer extends Application {
         gc.setLineWidth(2);
 
 //        // Draw a block at the center of the canvas
-//        double blockX = 150;
-//        double blockY = 150;
-//        double blockWidth = 100;
-//        double blockHeight = 200;
-//        gc.fillRect(blockX, blockY, blockWidth, blockHeight);
-//        gc.strokeRect(blockX, blockY, blockWidth, blockHeight);
-
+        for (var block: blocksG) {
+            Point topleft = new Point(block.getLeft(), block.getTop());
+            double blockX = topleft.getX();
+            double blockY = topleft.getY();
+            double blockWidth = block.getLeft() - block.getRight();
+            double blockHeight = block.getTop() - block.getBottom();
+            gc.fillRect(blockX, blockY, -blockWidth, -blockHeight);
+            gc.strokeRect(blockX, blockY, -blockWidth, -blockHeight);
+            //print out the block information in a single line
+            System.out.println("block info: " + blockX + "," + blockY + "," + blockWidth + "," + blockHeight);
+        }
         // Draw a line coming out of the block
 //        double lineX1 = blockX + blockWidth;
 //        double lineY1 = blockY + blockHeight / 2;
