@@ -26,7 +26,7 @@ public class SimulinkViewer extends Application {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         // Set the fill color for the circle
-        gc.setFill(Color.BLUE);
+        gc.setFill(Color.GRAY);
 
         // Set the stroke color and width (optional)
         gc.setStroke(Color.BLACK);
@@ -39,15 +39,15 @@ public class SimulinkViewer extends Application {
             double blockY = topleft.getY();
             double blockWidth = block.getLeft() - block.getRight();
             double blockHeight = block.getTop() - block.getBottom();
-            gc.fillRect(blockX, blockY, -blockWidth, -blockHeight);
-            gc.strokeRect(blockX, blockY, -blockWidth, -blockHeight);
+            gc.fillRect(blockX-200, blockY+100, -blockWidth, -blockHeight);
+            gc.strokeRect(blockX-200, blockY+100, -blockWidth, -blockHeight);
             //print out the block information in a single line
             System.out.println("block info: " + blockX + "," + blockY + "," + blockWidth + "," + blockHeight);
         }
-        gc.setStroke(Color.RED);
+        gc.setStroke(Color.BLACK);
         gc.setLineWidth(4);
         for (var line: drawLines)
-            gc.strokeLine(line.getP1().getX(), line.getP1().getY(), line.getP2().getX(), line.getP2().getY());
+            gc.strokeLine(line.getP1().getX()-200, line.getP1().getY()+100, line.getP2().getX()-200, line.getP2().getY()+100);
         //loop in the same manner but printout the lines information
         for (var line: drawLines) {
             //convert the line argument which are int to a string
@@ -73,7 +73,7 @@ public class SimulinkViewer extends Application {
 
             // Create the file path by appending the file name to the current directory
             String filePath = currentDirectory + File.separator +"src//main//java//com//example//simulinkviewer//" +  "Example.mdl";
-            //String filePath = "/home/mahmoud/Downloads/Example.mdl";
+//            String filePath = "/home/mahmoud/Downloads/Example.mdl";
             FileReader fileReader = new FileReader(filePath);
             Line[] fileLines = fileReader.getLines();
             for (Line line: fileLines) {
