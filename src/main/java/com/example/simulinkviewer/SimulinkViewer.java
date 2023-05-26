@@ -1,21 +1,28 @@
 package com.example.simulinkviewer;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class SimulinkViewer extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        ArrayList<DrawLine> drawLines = new ArrayList<>();
         try {
-            FileReader fileReader = new FileReader("D:\\CODING\\Java\\SimulinkViewer\\src\\main\\java\\com\\example\\simulinkviewer\\Example.mdl");
+            // Get the current working directory
+            String currentDirectory = System.getProperty("user.dir");
+
+            // Create the file path by appending the file name to the current directory
+            String filePath = currentDirectory + File.separator +"src//main//java//com//example//simulinkviewer//" +  "Example.mdl";
+            FileReader fileReader = new FileReader(filePath);
             Line[] fileLines = fileReader.getLines();
             for (Line line: fileLines) {
                 System.out.println(line.getDistBlockId());
@@ -24,7 +31,8 @@ public class SimulinkViewer extends Application {
             for (Block block: fileBlocks) {
                 System.out.println(block.getType());
             }
-            ArrayList<DrawLine> drawLines = GenerateDrawLines(fileBlocks, fileLines);
+            drawLines = GenerateDrawLines(fileBlocks, fileLines);
+            System.out.println("called generatedrawlines");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -42,23 +50,30 @@ public class SimulinkViewer extends Application {
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(2);
 
-        // Draw a block at the center of the canvas
-        double blockX = 150;
-        double blockY = 150;
-        double blockWidth = 100;
-        double blockHeight = 200;
-        gc.fillRect(blockX, blockY, blockWidth, blockHeight);
-        gc.strokeRect(blockX, blockY, blockWidth, blockHeight);
+//        // Draw a block at the center of the canvas
+//        double blockX = 150;
+//        double blockY = 150;
+//        double blockWidth = 100;
+//        double blockHeight = 200;
+//        gc.fillRect(blockX, blockY, blockWidth, blockHeight);
+//        gc.strokeRect(blockX, blockY, blockWidth, blockHeight);
 
         // Draw a line coming out of the block
-        double lineX1 = blockX + blockWidth;
-        double lineY1 = blockY + blockHeight / 2;
-        double lineX2 = lineX1 + 150;
-        double lineY2 = lineY1 - 100;
-        gc.setStroke(Color.RED);
-        gc.setLineWidth(4);
-        gc.strokeLine(lineX1, lineY1, lineX2, lineY2);
-
+//        double lineX1 = blockX + blockWidth;
+//        double lineY1 = blockY + blockHeight / 2;
+//        double lineX2 = lineX1 + 150;
+//        double lineY2 = lineY1 - 100;
+//        gc.setStroke(Color.RED);
+//        gc.setLineWidth(4);
+        for (var line: drawLines)
+            gc.strokeLine(line.getP1().getX(), line.getP1().getY(), line.getP2().getX(), line.getP2().getY());
+        //loop in the same manner but printout the lines information
+        for (var line: drawLines) {
+            //convert the line argument which are int to a string
+            //convert an int to a string
+            String lineString = String.valueOf(line.getP1().getX()) + "," + String.valueOf(line.getP1().getY()) + "," + String.valueOf(line.getP2().getX()) + "," + String.valueOf(line.getP2().getY());
+            System.out.println(lineString);
+        }
 
         // Create a StackPane and add the canvas to it
         StackPane pane = new StackPane();
