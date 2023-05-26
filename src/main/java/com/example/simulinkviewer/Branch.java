@@ -2,7 +2,7 @@ package com.example.simulinkviewer;
 
 public class Branch {
     private int z;
-    private Point pt;
+    private Point pt = new Point(-1, -1);
     private int distBlockId;
     private int distBlockPort;
 
@@ -36,6 +36,10 @@ public class Branch {
 
     @Override
     public String toString() {
-        return String.format("Z: %s, Dist block id: %s, Dist block port: %s, Point: ", z, distBlockId, distBlockPort) + pt.toString();
+        String ptStr = "";
+        if (pt.getX() != -1) {
+            ptStr = pt.toString();
+        }
+        return String.format("Z: %s, Dist block id: %s, Dist block port: %s, Point: ", z, distBlockId, distBlockPort) + ptStr;
     }
 }

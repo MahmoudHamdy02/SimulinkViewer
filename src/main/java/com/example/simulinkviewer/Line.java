@@ -8,8 +8,8 @@ public class Line {
     private int distBlockId = -1;
     private int distBlockPort = -1;
 
-    private Point[] pts;
-    private Branch[] branches;
+    private Point[] pts = new Point[0];
+    private Branch[] branches = new Branch[0];
 
     public int getZ() {
         return z;
@@ -77,7 +77,7 @@ public class Line {
             brnches = brnches.concat(b.toString());
         }
         return String.format(
-                "Src block id: %s, Src block port: %s, Dist block id: %s, Dist block port: %s, Z: %s",
-                srcBlockId, srcBlockPort, distBlockId, distBlockPort, z) + points + brnches;
+                "Src block id: %s, Src block port: %s, Dist block id: %s, Dist block port: %s, Z: %s. ",
+                srcBlockId, srcBlockPort, distBlockId, distBlockPort, z) + "Points: " + points + "Branches: " + brnches;
     }
 }
