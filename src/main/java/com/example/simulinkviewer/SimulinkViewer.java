@@ -103,7 +103,7 @@ public class SimulinkViewer extends Application {
             Point startPt = new Point(startX, startY);
             Point endPt;
 
-            if(l.getDistBlockId() != -1 || l.getDistBlockId() != 0 && Block.findById(blocks, l.getDistBlockId()) != null ) { // there is dist
+            if(l.getDistBlockId() != -1 || l.getDistBlockId() != 0) { // there is dist
                 if(l.getPts() != null && l.getPts().length > 0) { // if there are points, make more lines
                     for(Point linePt: l.getPts()) { // NOTE: line points are distance moved, not absolute coordinations
                         endPt = new Point(startPt.getX() + linePt.getX(), startPt.getY() + linePt.getY());
@@ -114,8 +114,6 @@ public class SimulinkViewer extends Application {
                 int distId = l.getDistBlockId();
                 int distPort = l.getDistBlockPort();
                 Block distBlock = Block.findById(blocks, distId);
-                if (distBlock != null)
-                    System.out.println("dist block not null");
                 // assuming height of blocks = 34
                 int endY = 5 + distBlock.getTop() + distPort * 8;
                 System.out.println("after calling gettop");
