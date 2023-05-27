@@ -29,12 +29,12 @@ public class SimulinkViewer extends Application {
         gc.setFill(Color.GRAY);
 
         // Set the stroke color and width (optional)
-        gc.setStroke(Color.BLACK);
+        gc.setStroke(Color.DEEPSKYBLUE);
         gc.setLineWidth(2);
 
 //        // Draw a block at the center of the canvas
         for (var block: blocksG) {
-            gc.setFill(Color.GRAY);
+            gc.setFill(Color.WHITESMOKE);
             Point topleft = new Point(block.getLeft(), block.getTop());
             double blockX = topleft.getX();
             double blockY = topleft.getY();
@@ -44,10 +44,10 @@ public class SimulinkViewer extends Application {
             gc.strokeRect(blockX-200, blockY+100, -blockWidth, -blockHeight);
             //print out the block information in a single line
             System.out.println("block info: " + blockX + "," + blockY + "," + blockWidth + "," + blockHeight);
-            gc.setFill(Color.BLACK);
+            gc.setFill(Color.DEEPSKYBLUE);
             gc.fillText(block.getName(), blockX-200, blockY+220+2*blockHeight);
         }
-        gc.setStroke(Color.BLACK);
+        gc.setStroke(Color.GRAY);
         gc.setLineWidth(4);
         for (var line: drawLines)
             gc.strokeLine(line.getP1().getX()-200, line.getP1().getY()+100, line.getP2().getX()-200, line.getP2().getY()+100);
