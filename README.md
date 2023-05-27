@@ -5,6 +5,14 @@
 
 A simple Simulink model viewer that can be used to view Simulink models and their contents. Translates XML files to a box and arrow diagram. The viewer is written in Java and uses JavaFX for the GUI.
 
+The project is split into three main parts:
+
+1- Parsing the XML file and converting its content to java objects.
+
+2- Split the lines into smaller lines, depending on points and branches.
+
+3- Draw the prepared line segments using JavaFX.
+
 The viewer is a project for the Advanced Programming CSE231 course.
 
 ## Team Members
