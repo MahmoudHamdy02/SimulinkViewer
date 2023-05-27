@@ -34,6 +34,7 @@ public class SimulinkViewer extends Application {
 
 //        // Draw a block at the center of the canvas
         for (var block: blocksG) {
+            gc.setFill(Color.GRAY);
             Point topleft = new Point(block.getLeft(), block.getTop());
             double blockX = topleft.getX();
             double blockY = topleft.getY();
@@ -43,6 +44,8 @@ public class SimulinkViewer extends Application {
             gc.strokeRect(blockX-200, blockY+100, -blockWidth, -blockHeight);
             //print out the block information in a single line
             System.out.println("block info: " + blockX + "," + blockY + "," + blockWidth + "," + blockHeight);
+            gc.setFill(Color.BLACK);
+            gc.fillText(block.getName(), blockX-200, blockY+220+2*blockHeight);
         }
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(4);
